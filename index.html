@@ -4,78 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#ffffff">
-    <title>CCRT - BALL</title>
+    <title>BALL - Zegar</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <style>
-        :root { 
-            --bg-color: #ffffff; 
-            --ui-white: #ffffff; 
-        }
-        
+        :root { --bg-color: #ffffff; --ui-white: #ffffff; }
         html, body {
-            margin: 0; padding: 0; width: 100%; 
-            height: 100vh; height: 100svh; 
-            background-color: var(--bg-color);
-            transition: background-color 0.5s ease;
-            overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+            margin: 0; padding: 0; width: 100%; height: 100vh; height: 100svh; 
+            background-color: var(--bg-color); transition: background-color 0.5s ease;
+            overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
             -webkit-font-smoothing: antialiased;
         }
-
         body.dark-mode { --bg-color: #121212; }
-
+        /* touch-action: pan-y zapobiega dziwnym skokom na mobile przy tapnięciu */
         model-viewer { 
-            width: 100%; height: 100%; 
-            background-color: transparent; 
-            outline: none; display: block;
+            width: 100%; height: 100%; background-color: transparent; outline: none; display: block;
+            touch-action: pan-y; 
         }
-
-        model-viewer::part(default-ar-button) {
-            display: none !important;
-        }
+        model-viewer::part(default-ar-button) { display: none !important; }
 
         .ui-element {
             position: absolute; background: none; border: none; padding: 0;
-            cursor: pointer; z-index: 100;
-            mix-blend-mode: difference;
-            color: var(--ui-white) !important; 
-            fill: var(--ui-white) !important;
+            cursor: pointer; z-index: 100; mix-blend-mode: difference;
+            color: var(--ui-white) !important; fill: var(--ui-white) !important;
             transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            -webkit-tap-highlight-color: transparent;
-            outline: none;
+            -webkit-tap-highlight-color: transparent; outline: none;
         }
 
-        .brand-btn { 
-            top: 32px; font-weight: 700; font-size: 15px; 
-            letter-spacing: 0.2em; text-transform: uppercase;
-        }
-        .brand-ccrt { left: 32px; }
+        .brand-btn { top: 32px; font-weight: 700; font-size: 15px; letter-spacing: 0.2em; text-transform: uppercase; }
+        .brand-alta { left: 32px; }
         .brand-czasowniki { right: 32px; text-align: right; }
 
         .info-panel {
-            position: absolute; top: 65px; 
-            color: var(--ui-white); mix-blend-mode: difference;
-            opacity: 0; pointer-events: none; 
-            transition: opacity 0.4s ease, transform 0.4s ease; 
-            z-index: 90;
-            font-weight: 200; 
-            font-size: 14px;  
-            line-height: 1.5; letter-spacing: 0.03em;
-            text-transform: none;
+            position: absolute; top: 65px; color: var(--ui-white); mix-blend-mode: difference;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease; 
+            z-index: 90; font-weight: 200; font-size: 14px; line-height: 1.5; letter-spacing: 0.03em;
             transform: translateY(-5px);
         }
         .info-panel.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-        #panel-ccrt { left: 32px; }
+        #panel-alta { left: 32px; }
         #panel-czasowniki { right: 32px; text-align: right; max-width: 320px; }
 
         .icon-btn { width: 28px; height: 28px; bottom: 40px; display: flex; align-items: center; justify-content: center; }
         .icon-btn svg { width: 20px; height: 20px; }
-        
-        #ar-label { 
-            font-weight: 800; font-size: 16px; 
-            display: flex; align-items: center; justify-content: center; 
-            width: 20px; height: 20px;
-        }
+        #ar-label { font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; }
 
         .btn-theme { left: 32px; }
         .btn-pause { left: 36%; transform: translateX(-50%); }
@@ -94,8 +65,8 @@
 </head>
 <body>
 
-    <button class="ui-element brand-btn brand-ccrt" id="toggle-ccrt">BALL</button>
-    <div id="panel-ccrt" class="info-panel">
+    <button class="ui-element brand-btn brand-alta" id="toggle-alta">ALTA</button>
+    <div id="panel-alta" class="info-panel">
         Mechanizm kwarcowy<br>88x84x86 mm<br>Druk 3D PLA
     </div>
 
@@ -126,66 +97,91 @@
 
     <model-viewer 
         id="clock-model"
-        src="BALL.glb" 
+        src="ALTA.glb" 
         ar ar-modes="webxr scene-viewer quick-look" 
-        camera-controls disable-pan
+        camera-controls
+        disable-tap
+        max-camera-orbit="auto auto 400%"
         shadow-intensity="1" shadow-softness="1"
-        exposure="1.6" environment-intensity="1.8"
-        autoplay
-        camera-orbit="-90deg 75deg 220%" camera-target="0m 0.04m 0m"
-        min-camera-orbit="auto auto 100%" max-camera-orbit="auto auto 1000%"
-        loading="eager" interaction-prompt="none">
+        exposure="1.8" environment-intensity="1.5"
+        autoplay 
+        animation-crossfade-duration="0"
+        auto-rotate="false" 
+        camera-orbit="-20deg 65deg 130%" 
+        camera-target="0m 0.15m 0m"
+        loading="eager" 
+        interaction-prompt="none">
     </model-viewer>
 
     <script>
-        const CONFIG = {
-            mobileOrbit: "-90deg 75deg 200%",
-            desktopOrbit: "-90deg 75deg 220%",
-            mobileTarget: "0m 0.06m 0m",
-            desktopTarget: "0m 0.04m 0m"
-        };
-
         const mv = document.querySelector('#clock-model');
 
-        document.querySelector('#reset-view').onclick = () => {
-            const isMob = window.innerWidth < 768;
-            mv.cameraOrbit = isMob ? CONFIG.mobileOrbit : CONFIG.desktopOrbit;
-            mv.cameraTarget = isMob ? CONFIG.mobileTarget : CONFIG.desktopTarget;
+        // Reset
+        const resetToZero = () => {
+            mv.fieldOfView = "auto"; 
+            mv.cameraOrbit = "-20deg 65deg 130%"; 
+            mv.cameraTarget = "0m 0.15m 0m";
+            mv.jumpCameraToGoal();
         };
 
+        document.querySelector('#reset-view').onclick = resetToZero;
+
+        // BLOKADA RESETU PRZY TAPNIĘCIU
+        // Ta funkcja zapobiega focusowaniu modelu przy kliknięciu, co wyłącza "automatyczny reset"
+        mv.addEventListener('mousedown', (ev) => {
+            if (ev.detail > 1) ev.preventDefault(); // Blokuje double click
+        }, { passive: false });
+
+        // Panele info
         const togglePanel = (id) => {
             const p = document.getElementById(id);
-            const other = id === 'panel-ccrt' ? 'panel-czasowniki' : 'panel-ccrt';
-            document.getElementById(other).classList.remove('visible');
+            const otherId = id === 'panel-alta' ? 'panel-czasowniki' : 'panel-alta';
+            document.getElementById(otherId).classList.remove('visible');
             p.classList.toggle('visible');
         };
-        document.getElementById('toggle-ccrt').onclick = () => togglePanel('panel-ccrt');
+
+        document.getElementById('toggle-alta').onclick = () => togglePanel('panel-alta');
         document.getElementById('toggle-czasowniki').onclick = () => togglePanel('panel-czasowniki');
 
+        // Dark mode
         document.getElementById('theme-toggle').onclick = () => {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
-            mv.exposure = isDark ? "1.6" : "2.8";
+            mv.exposure = isDark ? "1.8" : "2.8";
             document.querySelector('meta[name="theme-color"]').setAttribute('content', isDark ? '#121212' : '#ffffff');
         };
 
+        // Pauza
         const pauseBtn = document.getElementById('pause-toggle');
         pauseBtn.onclick = () => {
-            const isP = pauseBtn.dataset.paused === "true";
-            if (!isP) {
+            const isPaused = (pauseBtn.getAttribute('data-paused') === "true");
+            if (!isPaused) {
                 mv.pause();
                 document.getElementById('icon-pause').style.display = 'none';
                 document.getElementById('icon-play').style.display = 'block';
-                pauseBtn.dataset.paused = "true";
+                pauseBtn.setAttribute('data-paused', "true");
             } else {
                 mv.play();
                 document.getElementById('icon-pause').style.display = 'block';
                 document.getElementById('icon-play').style.display = 'none';
-                pauseBtn.dataset.paused = "false";
+                pauseBtn.setAttribute('data-paused', "false");
             }
         };
 
+        // AR / FS
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const actionBtn = document.getElementById('action-toggle');
+        
         if (isMobile) {
             document.getElementById('ar-label').style.display = 'flex';
-            document.getElementById('action-toggle').onclick = () => mv.activateAR#
+            actionBtn.onclick = () => mv.activateAR();
+        } else {
+            document.getElementById('fs-icon').style.display = 'block';
+            actionBtn.onclick = () => {
+                if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+                else document.exitFullscreen();
+            };
+        }
+    </script>
+</body>
+</html>
