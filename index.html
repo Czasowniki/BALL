@@ -133,7 +133,7 @@
         exposure="1.6" environment-intensity="1.8"
         autoplay
         camera-orbit="-90deg 55deg 120%" 
-        camera-target="-0.05m 0.04m 0m"
+        camera-target="0m 0.04m -0.015m"
         min-camera-orbit="auto auto 80%" 
         max-camera-orbit="auto auto 600%"
         loading="eager" 
@@ -142,10 +142,10 @@
 
     <script>
         const CONFIG = {
-            mobileOrbit: "-90deg 55deg 100%",
+            mobileOrbit: "-90deg 55deg 110%",
             desktopOrbit: "-90deg 55deg 120%",
-            mobileTarget: "-0.08m 0.06m 0m",
-            desktopTarget: "-0.05m 0.04m 0m"
+            mobileTarget: "0m 0.06m -0.015m",
+            desktopTarget: "0m 0.04m -0.015m"
         };
 
         const mv = document.querySelector('#clock-model');
