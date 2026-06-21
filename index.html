@@ -132,21 +132,20 @@
         shadow-intensity="1" shadow-softness="1"
         exposure="1.6" environment-intensity="1.8"
         autoplay
-        camera-orbit="-90deg 55deg 0.35m" 
-        camera-target="0m 0.012m -0.015m"
-        min-camera-orbit="auto auto auto" 
-        max-camera-orbit="auto auto auto"
+        camera-orbit="-90deg 55deg 120%" 
+        camera-target="0m 0.04m -0.015m"
+        min-camera-orbit="auto auto 80%" 
+        max-camera-orbit="auto auto 600%"
         loading="eager" 
         interaction-prompt="none">
     </model-viewer>
 
     <script>
-        // DOSTOSOWANIE CONFIGU DO METRÓW DLA IDEALNEGO RESETU
         const CONFIG = {
-            mobileOrbit: "-90deg 55deg 0.35m",
-            desktopOrbit: "-90deg 55deg 0.35m",
-            mobileTarget: "0m 0.012m -0.015m",
-            desktopTarget: "0m 0.012m -0.015m"
+            mobileOrbit: "-90deg 55deg 110%",
+            desktopOrbit: "-90deg 55deg 120%",
+            mobileTarget: "0m 0.06m -0.015m",
+            desktopTarget: "0m 0.04m -0.015m"
         };
 
         const mv = document.querySelector('#clock-model');
